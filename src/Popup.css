@@ -1,0 +1,30 @@
+.boxframe {
+  margin-top: 10%;
+  height: 30em;
+  width: 50%;
+
+  display: flex;
+  background-color: blanchedalmond;
+  border: 6px solid white;
+}
+
+.oneMoreh2 {
+  align-self: center;
+}
+
+.box {
+  background-color: blanchedalmond;
+}
+
+.message p {
+  height: 100%;
+}
+
+button {
+  background-color: white;
+  border-style: none;
+  border-radius: 0.2em;
+  margin-bottom: 0.2em;
+  width: 50%;
+  align-self: center;
+}

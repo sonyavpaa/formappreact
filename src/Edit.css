@@ -1,0 +1,15 @@
+.editForm {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.499);
+
+  z-index: 20;
+}
+
+.editForm form {
+  width: 20em;
+  position: absolute;
+  border: 3px solid red;
+  margin: 10em 0 10em 35%;
+}

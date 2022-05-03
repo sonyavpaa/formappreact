@@ -1,0 +1,31 @@
+.frame {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 189, 127);
+  margin: 2em 1em 2em 1em;
+}
+
+h2 {
+  margin-left: 0.5em;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+.output {
+  background-color: rgb(255, 189, 127);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.output p {
+  margin-left: 1em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  height: 100%;
+}
+
+.output span {
+  font-family: cursive;
+}
