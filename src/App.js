@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./App.css";
@@ -8,133 +8,137 @@ import Popup from "./Popup";
 import List from "./List";
 import Edit from "./Edit";
 
-class App extends Component {
-  state = {
-    inputData: {
-      id: null,
-      firstname: "",
-      lastname: "",
-      phone: "",
-      role: "",
-      message: "",
-    },
-    persons: [],
-    showPopup: false,
-    showEdit: false,
-    currentNote: {
-      id: null,
-      firstname: "",
-      lastname: "",
-      phone: "",
-      role: "",
-      message: "",
-    },
-  };
+// class App extends Component {
+//   state = {
+//     inputData: {
+//       id: null,
+//       firstname: "",
+//       lastname: "",
+//       phone: "",
+//       role: "",
+//       message: "",
+//     },
+//     persons: [],
+//     showPopup: false,
+//     showEdit: false,
+//     currentNote: {
+//       id: null,
+//       firstname: "",
+//       lastname: "",
+//       phone: "",
+//       role: "",
+//       message: "",
+//     },
+//   };
 
-  closeFunk = () => {
-    this.setState({ showPopup: false });
-  };
+const App = () => {
+  const [inputData, setInputData] = useState({
+    id: null,
+    firstname: "",
+    lastname: "",
+    phone: "",
+    role: "",
+    message: "",
+  });
+  const [showPopup, setShowPopup] = useState(false);
+  const [showEdit, setshowEdit] = useState(false);
+  const [persons, setData] = useState([]);
+  const [currentNote, setcurrentNote] = useState({
+    id: null,
+    firstname: "",
+    lastname: "",
+    phone: "",
+    role: "",
+    message: "",
+  });
 
-  componentDidMount() {
-    axios.get(`http://localhost:3001/notes`).then((res) => {
-      const persons = res.data;
+  // const closeFunk = () => {
+  //   this.setState({ showPopup: false });
+  // };
 
-      this.setState({ persons: persons });
-    });
-  }
+  useEffect(() => {
+    axios.get("http://localhost:3001/notes").then((res) => setData(res.data));
+  }, []);
 
-  deleteFunc = (id) => {
+  const deleteFunc = (id) => {
     axios.delete(`http://localhost:3001/notes/${id}`).then((res) => {
-      const notes = this.state.persons.filter((item) => item.id !== id);
-      this.setState({ persons: notes });
+      const notes = persons.filter((item) => item.id !== id);
+      setData(notes);
     });
   };
 
-  editFunc = (e) => {
-    console.log(this.state.currentNote);
+  const editFunc = (e) => {
+    console.log(currentNote);
     axios
-      .put(`http://localhost:3001/notes/${e}`, this.state.currentNote)
+      .put(`http://localhost:3001/notes/${e}`, currentNote)
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
-    this.setState({ showEdit: false });
+    setshowEdit(!showEdit);
     window.location.reload();
   };
 
-  updateFunc = (e) => {
-    this.setState({
-      currentNote: {
-        ...this.state.currentNote,
-        [e.target.name]: e.target.value,
-      },
+  const updateFunc = (e) => {
+    setcurrentNote({
+      ...currentNote,
+      [e.target.name]: e.target.value,
     });
   };
 
-  inputFunc = (e) => {
-    this.setState({
-      inputData: { ...this.state.inputData, [e.target.name]: e.target.value },
-    });
+  const inputFunc = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
-  modalFunc = (e) => {
-    console.log(this.state.className);
+  const modalFunc = (e) => {
     e.preventDefault();
-    this.setState({ showPopup: !this.state.showPopup });
+    setShowPopup(!showPopup);
   };
 
-  showEdit = (e) => {
-    this.setState({ showEdit: true, currentNote: e });
+  const showEditFunc = (e) => {
+    setshowEdit(!showEdit);
+    setcurrentNote(e);
   };
 
-  submitFunc = () => {
+  const submitFunc = () => {
+    console.log(inputData);
     axios
-      .post("http://localhost:3001/notes", this.state.inputData)
+      .post("http://localhost:3001/notes", inputData)
       .catch((error) => console.log(error));
-    this.setState({ showPopup: false });
+    setShowPopup(!showPopup);
     window.location.reload();
   };
 
-  render() {
-    return (
-      <div className="App">
-        <header className="Appframe">
-          {this.state.showEdit && (
-            <Edit
-              {...this.state.currentNote}
-              // defaultfirstname={this.state.currentNote.firstname}
-              // defaultlastname={this.state.currentNote.lastname}
-              // defaultphone={this.state.currentNote.phone}
-              // defaultrole={this.state.currentNote.role}
-              // defaultmessage={this.state.currentNote.message}
-              edit={() => this.editFunc(this.state.currentNote.id)}
-              // this.editFunc}
-              onChange={this.updateFunc}
-            />
-          )}
-          {this.state.showPopup && (
-            <Popup
-              className="pop"
-              close={this.modalFunc}
-              {...this.state.inputData}
-              submit={this.submitFunc}
-            />
-          )}
-          <Form
-            onChange={this.inputFunc}
-            submit={this.modalFunc}
-            button="SEND"
-          ></Form>
-          <View {...this.state.inputData} />
-        </header>
-        <main>
-          <List
-            data={this.state.persons}
-            delete={this.deleteFunc}
-            edit={this.showEdit}
+  return (
+    <div className="App">
+      <header className="Appframe">
+        {showEdit && (
+          <Edit
+            {...currentNote}
+            // defaultfirstname={this.state.currentNote.firstname}
+            // defaultlastname={this.state.currentNote.lastname}
+            // defaultphone={this.state.currentNote.phone}
+            // defaultrole={this.state.currentNote.role}
+            // defaultmessage={this.state.currentNote.message}
+            edit={() => editFunc(currentNote.id)}
+            // this.editFunc}
+            onChange={updateFunc}
           />
-        </main>
-      </div>
-    );
-  }
-}
+        )}
+        {showPopup && (
+          <Popup
+            className="pop"
+            close={modalFunc}
+            {...inputData}
+            submit={submitFunc}
+          />
+        )}
+        <Form onChange={inputFunc} submit={modalFunc} button="SEND"></Form>
+        <View {...inputData} />
+      </header>
+      <main>
+        <List data={persons} delete={deleteFunc} edit={showEditFunc} />
+      </main>
+    </div>
+  );
+};
 
 export default App;

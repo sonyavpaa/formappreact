@@ -5,7 +5,7 @@
       "firstname": "Norppa",
       "lastname": "Kivella",
       "phone": "111-111",
-      "role": "Teacher",
+      "role": "Baker",
       "message": "Olenko norppa kivellä"
     },
     {
@@ -14,7 +14,15 @@
       "lastname": "Zoutenbier",
       "phone": "123123",
       "role": "Teacher",
-      "message": "Banana"
+      "message": "Bananas meow"
+    },
+    {
+      "id": 3,
+      "firstname": "Sonja",
+      "lastname": "Vpaa",
+      "phone": "666",
+      "role": "Destroyer",
+      "message": "I won this shit"
     }
   ]
 }

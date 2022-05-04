@@ -11,7 +11,7 @@ function Form(props) {
           name="firstname"
           id="firstname"
           defaultValue={props.firstname}
-          required
+          // required
         ></input>
       </div>
       <div>
@@ -21,7 +21,7 @@ function Form(props) {
           name="lastname"
           id="lastname"
           defaultValue={props.lastname}
-          required
+          // required
         ></input>
       </div>
       <div>
@@ -35,7 +35,12 @@ function Form(props) {
       </div>
       <div>
         <label htmlFor="roles">Role</label>
-        <select name="role" id="roles" defaultValue={props.role} required>
+        <select
+          name="role"
+          id="roles"
+          defaultValue={props.role}
+          // required
+        >
           <option value="" onvalid="true" hidden>
             Choose a role
           </option>
@@ -57,7 +62,7 @@ function Form(props) {
           name="message"
           id="message"
           defaultValue={props.message}
-          required
+          // required
         ></textarea>
       </div>
       <input className="button" type="submit" value={props.button} />
