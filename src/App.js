@@ -8,29 +8,6 @@ import Popup from "./Popup";
 import List from "./List";
 import Edit from "./Edit";
 
-// class App extends Component {
-//   state = {
-//     inputData: {
-//       id: null,
-//       firstname: "",
-//       lastname: "",
-//       phone: "",
-//       role: "",
-//       message: "",
-//     },
-//     persons: [],
-//     showPopup: false,
-//     showEdit: false,
-//     currentNote: {
-//       id: null,
-//       firstname: "",
-//       lastname: "",
-//       phone: "",
-//       role: "",
-//       message: "",
-//     },
-//   };
-
 const App = () => {
   const [inputData, setInputData] = useState({
     id: null,
@@ -51,10 +28,6 @@ const App = () => {
     role: "",
     message: "",
   });
-
-  // const closeFunk = () => {
-  //   this.setState({ showPopup: false });
-  // };
 
   useEffect(() => {
     axios.get("http://localhost:3001/notes").then((res) => setData(res.data));
@@ -113,13 +86,7 @@ const App = () => {
         {showEdit && (
           <Edit
             {...currentNote}
-            // defaultfirstname={this.state.currentNote.firstname}
-            // defaultlastname={this.state.currentNote.lastname}
-            // defaultphone={this.state.currentNote.phone}
-            // defaultrole={this.state.currentNote.role}
-            // defaultmessage={this.state.currentNote.message}
             edit={() => editFunc(currentNote.id)}
-            // this.editFunc}
             onChange={updateFunc}
           />
         )}
